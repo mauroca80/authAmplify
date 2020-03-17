@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, View, Text} from 'react-native';
 import {NavigationContainerProps} from 'react-navigation';
-
+import store from '../../store';
 const HomeLogin: React.FC<NavigationContainerProps> = props => {
   return (
     <View>
