@@ -6,6 +6,7 @@ const withSignIn = WrappedComponent => {
   const mapStateToProps = ({signUp}) => ({
     loading: signUp.loading,
     error: signUp.error,
+    SigUpResponse: signUp.SigUpResponse,
   });
 
   const mapDispatchToProps = {
