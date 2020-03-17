@@ -1,15 +1,62 @@
-import React from 'react';
-import {Text, TextInput, View, Button} from 'react-native';
+import React, {useEffect} from 'react';
 
-const SignIn = () => {
+import {Text, Alert, TextInput, View, Button} from 'react-native';
+
+import withSignIn from '../hoc/withSignIn';
+import {SignInPayload} from '../redux/actions/signIn';
+
+interface SignInProps {
+  signIn: (payload: SignInPayload) => any;
+  error: null | Error;
+  loading: boolean;
+}
+
+const defaultState = {
+  login: '',
+  password: '',
+};
+
+const SignIn: React.FC<SignInProps> = ({signIn, error, loading}) => {
+  useEffect(() => {
+    if (error) {
+      Alert.alert(error.message);
+    }
+  }, [error, loading]);
+  const [state, setState] = React.useState(defaultState);
   return (
     <View>
+      {loading && <Text>loading</Text>}
+
       <Text>Ventana login</Text>
-      <TextInput testID="login" placeholder="Login" />
-      <TextInput testID="password" placeholder="password" />
-      <Button testID="button" title="Login" onPress={() => console.log('')} />
+      <TextInput
+        testID="login"
+        placeholder="Login"
+        onChangeText={login => {
+          setState({
+            ...state,
+            login,
+          });
+        }}
+      />
+      <TextInput
+        testID="password"
+        placeholder="password"
+        onChangeText={password => {
+          setState({
+            ...state,
+            password,
+          });
+        }}
+      />
+      <Button
+        testID="button"
+        title="Login"
+        onPress={() =>
+          signIn({username: state.login, password: state.password})
+        }
+      />
     </View>
   );
 };
 
-export default SignIn;
+export default withSignIn(SignIn);
