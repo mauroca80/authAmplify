@@ -3,7 +3,6 @@ import RootNavigation from '../../../navigation/RootNavigation';
 export const AUTH_SIGNIN_SUCCEFULLY = 'AUTH_SIGNIN_SUCEFULLY';
 export const AUTH_SIGNIN_REQUEST = 'AUTH_SIGNIN_REQUEST';
 export const AUTH_SIGNIN_ERROR = 'AUTH_SIGNIN_ERROR';
-export const AUTH_USER_DATA = 'AUTH_USER_DATA';
 
 export interface SignInPayload {
   username: string;
