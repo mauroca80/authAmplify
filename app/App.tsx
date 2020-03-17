@@ -1,6 +1,8 @@
-import Navigation from './navigation/Navigation';
-import {createAppContainer} from 'react-navigation';
+import React from 'react';
 import Amplify from 'aws-amplify';
+import {Provider} from 'react-redux';
+import AppNavigation from './navigation/AppNavigation';
+import RootNavigation from './navigation/RootNavigation';
 
 import {
   AMPLIFY_AUTH_REGION,
@@ -8,6 +10,7 @@ import {
   AMPLIFY_AUTH_USER_POOL_ID,
   AMPLIFY_AUTH_USER_POOL_WEB_CLIENT_ID,
 } from 'react-native-dotenv';
+import store from './store';
 
 Amplify.configure({
   Auth: {
@@ -18,6 +21,16 @@ Amplify.configure({
   },
 });
 
-const App = createAppContainer(Navigation);
+const App: React.FC = () => {
+  return (
+    <Provider store={store}>
+      <AppNavigation
+        ref={navigatorRef => {
+          RootNavigation.setTopLevelNavigator(navigatorRef);
+        }}
+      />
+    </Provider>
+  );
+};
 
 export default App;
